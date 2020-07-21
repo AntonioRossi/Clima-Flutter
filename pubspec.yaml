@@ -13,6 +13,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   geolocator: ^3.0.1
   http: ^0.12.2
+  flutter_config: ^1.0.7
 
 
 dev_dependencies:
