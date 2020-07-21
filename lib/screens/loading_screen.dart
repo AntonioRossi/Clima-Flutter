@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:clima/services/location.dart';
-import "package:clima/services/networking.dart";
-import 'package:clima/screens/location_screen.dart';
-
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+
+import 'package:clima/screens/location_screen.dart';
+import 'package:clima/services/weather.dart';
+
+import '../services/weather.dart';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -17,25 +18,14 @@ class _LoadingScreenState extends State<LoadingScreen> {
   );
 
   void getLocationData() async {
-    Location location = Location();
-    await location.getLocation();
-    print('latitude');
-    print(location.latitude);
-    print('longitude');
-    print(location.longitude);
-
-    NetworkHelper networkHelper = NetworkHelper(
-      latitude: location.latitude,
-      longitude: location.longitude,
-    );
-
-    var data = await networkHelper.getData();
+    WeatherModel weatherModel = WeatherModel();
+    var decodedData = await weatherModel.getWeatherData();
 
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) {
-          return LocationScreen(locationData: data);
+          return LocationScreen(locationData: decodedData);
         },
       ),
     );
