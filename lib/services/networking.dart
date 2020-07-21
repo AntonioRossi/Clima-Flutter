@@ -20,12 +20,10 @@ class NetworkHelper {
     String apiKey = FlutterConfig.get('OPENWEATHERMAP_API_KEY');
 
     String request =
-        'https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey';
+        'https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey&units=metric';
 
     http.Response response = await http.get(request);
     if (response.statusCode == 200) {
-      print(response.body);
-
       data = response.body;
 
       var decodedData = jsonDecode(data);
@@ -38,7 +36,7 @@ class NetworkHelper {
       print(weatherCondition);
       print(city);
 
-      return data;
+      return decodedData;
     } else {
       print(response);
       return null;

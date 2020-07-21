@@ -11,8 +11,6 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  var data;
-
   final spinkit = SpinKitDoubleBounce(
     color: Colors.white,
     size: 150.0,
@@ -21,7 +19,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void getLocationData() async {
     Location location = Location();
     await location.getLocation();
+    print('latitude');
     print(location.latitude);
+    print('longitude');
     print(location.longitude);
 
     NetworkHelper networkHelper = NetworkHelper(
@@ -29,14 +29,13 @@ class _LoadingScreenState extends State<LoadingScreen> {
       longitude: location.longitude,
     );
 
-    data = await networkHelper.getData();
-    print(data);
+    var data = await networkHelper.getData();
 
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) {
-          return LocationScreen();
+          return LocationScreen(locationData: data);
         },
       ),
     );
