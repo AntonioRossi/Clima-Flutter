@@ -2,6 +2,13 @@ import "package:clima/services/networking.dart";
 import 'package:clima/services/location.dart';
 
 class WeatherModel {
+  NetworkHelper networkHelper;
+
+  Future<dynamic> getCityData(String cityName) async {
+    var decodedData = await networkHelper.getCityWeather(cityName);
+    return decodedData;
+  }
+
   Future<dynamic> getWeatherData() async {
     Location location = Location();
     await location.getLocation();
@@ -10,12 +17,12 @@ class WeatherModel {
     print('longitude');
     print(location.longitude);
 
-    NetworkHelper networkHelper = NetworkHelper(
+    networkHelper = NetworkHelper(
       latitude: location.latitude,
       longitude: location.longitude,
     );
 
-    var decodedData = await networkHelper.getData();
+    var decodedData = await networkHelper.getLocationWeather();
     return decodedData;
   }
 
